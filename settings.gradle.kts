@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "simple_test"
 include(":app")
-include(":demo_vcpkg")
+include(":vcpkg")
