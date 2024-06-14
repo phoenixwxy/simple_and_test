@@ -23,3 +23,4 @@ rootProject.name = "simple_test"
 include(":app")
 include(":vcpkg")
 include(":jni_learn")
+include(":3rd_import")

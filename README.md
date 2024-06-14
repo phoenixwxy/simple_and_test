@@ -13,3 +13,8 @@ vcpkg是由微软发起的，使用cmake组织的c++包管理器。
 学习JNI使用
 
 [JNI Module](jni_learn/README.md)
+
+## Third Part Library Import
+Learn how import a 3rd library into the project
+
+[Third Part Import](3rd_import/README.md)
