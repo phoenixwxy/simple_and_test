@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.22.1)
 message("PhoenixDebug CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 message("PhoenixDebug CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/vcpkg.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/../../../../cmake/vcpkg.cmake)
 
 project("demo_vcpkg")
 
