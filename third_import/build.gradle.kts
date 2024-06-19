@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.a3rd_import"
+        applicationId = "com.example.third_import"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
