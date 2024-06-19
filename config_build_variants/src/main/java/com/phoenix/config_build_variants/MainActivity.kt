@@ -27,7 +27,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        test_load_libraries()
     }
+
+    companion object {
+        init {
+            System.loadLibrary("config_build_variants")
+        }
+    }
+
+    external fun test_load_libraries()
 }
 
 @Composable

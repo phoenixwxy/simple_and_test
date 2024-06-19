@@ -17,3 +17,4 @@ android {
     }
 }
 ```
+the examples could look at `src/main/cpp/config_build_variants.cpp`
