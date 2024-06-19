@@ -18,3 +18,8 @@ vcpkg是由微软发起的，使用cmake组织的c++包管理器。
 Learn how import a 3rd library into the project
 
 [Third Part Import](3rd_import/README.md)
+
+## Configure and build variants
+learn how to config a project module, set sources, create and build different variants
+
+[config_build_variants](config_build_variants/README.md)
