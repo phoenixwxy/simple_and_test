@@ -3,6 +3,9 @@
 Every module's root path is its name's path in build.gradle.kts
 
 ## variants
+we can define build type, flavors.
+so that, the name of apk might be:
+${NAME}-[api32, api33, api34]-[cn, gl]-[demo, full]-[free, pro]-[debug, release].apk
 
 ## sourceSets
 the binary libraries set the path to the module

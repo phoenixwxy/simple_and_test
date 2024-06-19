@@ -26,6 +26,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -33,7 +37,32 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        create("phoenix_debug") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".phoenix_debug"
+        }
+        create("phoenix_release") {
+            initWith(getByName("release"))
+        }
     }
+
+    flavorDimensions += "version"
+//    flavorDimensions += listOf("api", "mode")
+//    flavorDimensionList += listOf("version", "api")
+    productFlavors {
+        create("demo") {
+            dimension = "version"
+            applicationIdSuffix = ".demo"
+            versionNameSuffix = "-demo"
+        }
+        create("full") {
+            dimension = "version"
+            applicationIdSuffix = ".full"
+            versionNameSuffix = "-full"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
