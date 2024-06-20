@@ -2,6 +2,7 @@ package com.phoenix.config_build_variants
 
 import BuildInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,8 +20,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onCreate: Debug Version")
+        }
+
         val buildInfo = BuildInfo()
-        val name = buildInfo.getBuildType()
+        val name = buildInfo.getBuildType() + " " + BuildConfig.BUILD_TYPE
 
         setContent {
             Simple_testTheme {
@@ -37,6 +42,8 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
+        private const val TAG = "MainActivity"
+
         init {
             System.loadLibrary("config_build_variants")
         }
