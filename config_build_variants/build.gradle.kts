@@ -37,14 +37,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-
-        create("phoenix_debug") {
-            initWith(getByName("debug"))
-            applicationIdSuffix = ".phoenix_debug"
-        }
-        create("phoenix_release") {
-            initWith(getByName("release"))
-        }
     }
 
     flavorDimensions += "version"
@@ -60,6 +52,12 @@ android {
             dimension = "version"
             applicationIdSuffix = ".full"
             versionNameSuffix = "-full"
+        }
+    }
+
+    sourceSets {
+        getByName("main") {
+            jniLibs.srcDirs("jniLibs", "src/main/libs")
         }
     }
 
@@ -81,11 +79,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    sourceSets {
-        getByName("main") {
-            jniLibs.srcDirs("jniLibs", "src/main/libs")
-        }
-    }
+
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")

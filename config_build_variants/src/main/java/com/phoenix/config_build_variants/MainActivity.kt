@@ -1,5 +1,6 @@
 package com.phoenix.config_build_variants
 
+import BuildInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,11 +18,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val buildInfo = BuildInfo()
+        val name = buildInfo.getBuildType()
+
         setContent {
             Simple_testTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = name,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
