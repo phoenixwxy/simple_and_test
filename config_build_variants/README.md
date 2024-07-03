@@ -21,3 +21,8 @@ android {
 }
 ```
 the examples could look at `src/main/cpp/config_build_variants.cpp`
+
+how to export ourself libraries?
+we can build the source code, and copy the libraries to jniLibs path,
+and disable cmake build in build.gradle,
+the enjoy it
