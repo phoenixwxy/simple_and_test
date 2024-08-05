@@ -23,3 +23,8 @@ Learn how import a 3rd library into the project
 learn how to config a project module, set sources, create and build different variants
 
 [config_build_variants](config_build_variants/README.md)
+
+## Terminal
+For Android terminal
+
+[terminal](terminal/README.md)
