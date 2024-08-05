@@ -12,9 +12,13 @@ android {
 
         externalNativeBuild {
             cmake {
-                cppFlags += "-DANDROID_STL=c++_shared"
-                targets += "cpp_module"
+                cppFlags += "-DANDROID_STL=c++_shared, -std=c++17"
+                targets += setOf("cpp_module", "stl_learn")
             }
+        }
+
+        ndk {
+            abiFilters += "arm64-v8a"
         }
     }
 
@@ -41,6 +45,7 @@ android {
             version = "3.22.1"
         }
     }
+    ndkVersion = "26.2.11394342"
 }
 
 dependencies {
