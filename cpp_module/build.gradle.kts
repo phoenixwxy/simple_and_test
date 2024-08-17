@@ -13,7 +13,7 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags += "-DANDROID_STL=c++_shared, -std=c++17"
-                targets += setOf("cpp_module", "stl_learn")
+                targets += setOf("cpp_module", "stl_learn", "os_learn")
             }
         }
 

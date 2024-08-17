@@ -3,6 +3,6 @@
 //
 #include <gtest/gtest.h>
 
-TEST(Cpp, TestCout) {
-    std::cout << "test\n";
-}
+//TEST(Cpp, TestCout) {
+//    std::cout << "test\n";
+//}
