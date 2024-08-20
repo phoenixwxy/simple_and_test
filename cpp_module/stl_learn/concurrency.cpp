@@ -128,7 +128,7 @@ TEST(Concurrency, TestFuturesPromise) {
 TEST(Concurrency, TestFuturesPackaged_task) {
     std::packaged_task<int(int, int)> task([](int a, int b) { return a + b; });
     auto future = task.get_future();
-    auto f = std::async(std::launch::async, [&task/* = std::move(task)*/]() {
+    auto f = std::async(std::launch::async, [&task]() {
         std::this_thread::sleep_for(500ms);
         task(1, 1);
     });

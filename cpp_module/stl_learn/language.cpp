@@ -18,6 +18,12 @@ TEST(Language, TestEnumClass) {
 TEST(Language, TestClassMember) {
     struct Callback {
       std::function<void()> callback_;
+
+      Callback() = default;
+      Callback(const Callback &) = default;
+      Callback(Callback &&) = default;
+      Callback &operator=(const Callback &) = default;
+      Callback &operator=(Callback &&) = default;
     };
 
     class Test {
@@ -26,16 +32,19 @@ TEST(Language, TestClassMember) {
                          &callback) {
             callback_ = callback;
         }
+
         void process() const {
             callback_.callback_();
         }
 
     private:
-        const Callback callback_;
+        Callback callback_;
     };
 
-    class Base{
+    class Base {
     public:
+        Base() = default;
+
         void test() {
             callback_.callback_ = []() {
               std::cout << "hello" << std::endl;
@@ -47,6 +56,7 @@ TEST(Language, TestClassMember) {
         void testCallback() {
             test_.process();
         }
+
     private:
         Test test_;
         Callback callback_;
