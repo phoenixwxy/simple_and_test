@@ -3,7 +3,6 @@ package com.phoenix.camera
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceHolder
@@ -28,16 +27,17 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.phoenix.camera.ui.theme.Simple_testTheme
 import kotlin.math.sqrt
 
@@ -46,6 +46,8 @@ class MainActivity : ComponentActivity() {
         val TAG: String = MainActivity::class.java.simpleName
     }
 
+    private val viewModel = ViewModelProvider(this).get(MainActivityVieModel::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -53,8 +55,8 @@ class MainActivity : ComponentActivity() {
         requestCameraPermission()
         setContent {
             Simple_testTheme {
-                TODO("update")
-                DefaultDisplayView()
+//                TODO("update")
+                DefaultDisplayView(viewModel)
             }
         }
 
@@ -70,7 +72,7 @@ class MainActivity : ComponentActivity() {
         }
         if (granted) {
             // 权限被授予，可以继续使用相机
-            startCamera()
+            getCameraInfo()
         } else {
             // 权限被拒绝，提示用户
             Toast.makeText(this, "Camera permission is required", Toast.LENGTH_SHORT).show()
@@ -84,15 +86,14 @@ class MainActivity : ComponentActivity() {
         if (!hasPermissions(this, *permissions)) {
             requestPermissionLauncher.launch(permissions)
         } else {
-            startCamera()
+            getCameraInfo()
         }
     }
 
     private fun hasPermissions(context: Context, vararg permissions: String): Boolean {
         for (permission in permissions) {
             if (ContextCompat.checkSelfPermission(
-                    context,
-                    permission
+                    context, permission
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 return false
@@ -101,7 +102,10 @@ class MainActivity : ComponentActivity() {
         return true
     }
 
-    private fun startCamera() {
+    private fun getCameraInfo() {
+
+        viewModel.updateUiState(MainTextState("Some data from Activity"))
+
         // 启动相机的代码
     }
 }
@@ -111,8 +115,7 @@ fun ComposableSurfaceView(modifier: Modifier = Modifier) {
     AndroidView(factory = { context ->
         SurfaceView(context).apply {
             layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
             holder.addCallback(object : SurfaceHolder.Callback {
                 override fun surfaceCreated(p0: SurfaceHolder) {
@@ -166,8 +169,7 @@ fun SideBySideLayout(
     mainContent: @Composable () -> Unit
 ) {
     Row(
-        modifier = modifier.fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically
     ) {
         // 侧边栏内容，带有边框
         BoxWithBorder(
@@ -189,20 +191,22 @@ fun SideBySideLayout(
 }
 
 @Composable
-fun DefaultDisplayView() {
-    SideBySideLayout(
-        sideContent = {
+fun DefaultDisplayView(viewModel: MainActivityVieModel = MainActivityVieModel(), modifier: Modifier = Modifier) {
+    SideBySideLayout(sideContent = {
+        Row(
+            modifier = modifier.fillMaxSize(), verticalAlignment = Alignment.Top
+        ) {
             // 侧边栏内容，例如文本
+            val uiState by viewModel.uiState.collectAsState()
             Text(
-                text = "Side Panel",
-                fontSize = 18.sp
+                text = "Camera Number:" + uiState.globalInfo, fontSize = 12.sp
             )
-        },
-        mainContent = {
-            // 主内容区域
-            MultipleSurfaceViews()
         }
-    )
+
+    }, mainContent = {
+        // 主内容区域
+        MultipleSurfaceViews()
+    })
 }
 
 @Preview(showBackground = true, device = "spec:parent=pixel_5,orientation=landscape")
